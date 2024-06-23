@@ -4,10 +4,13 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
+import { usersDto } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -17,12 +20,12 @@ export class UsersController {
   }
 
   @Get(':id') // GET /users/:id
-  getOneUser(@Param('id') id: string) {
+  getOneUser(@Param('id', ParseIntPipe) id: string) {
     return { id };
   }
 
   @Post() // POST /users
-  createUser(@Body() user: {}) {
+  createUser(@Body(ValidationPipe) user: usersDto) {
     return user;
   }
 
